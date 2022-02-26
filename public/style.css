@@ -1,0 +1,26 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 3px solid black;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+nav ul li {
+  margin-right: 30px;
+}
+section {
+  max-width: 1500px;
+  margin: 40px auto;
+}
+input{
+  width: 250px;
+  padding: 5px;
+  height: auto;
+  margin-left: 500px;
+  flex-direction: column;
+  display: flex;
+}

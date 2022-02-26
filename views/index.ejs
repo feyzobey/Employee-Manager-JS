@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%-include('./inc/head')%>
+  </head>
+  <body>
+    <%-include('./inc/nav')%>
+    <section>
+      <h1>Employees</h1>
+      <ul>
+        <% employees.forEach(employee=>{ %>
+        <li>
+          <a href="/employee/<%=employee._id%>"><%=employee.name%> <%=employee.surname%></a>
+          <p>id:<%=employee.id%></p>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%-include('./inc/head')%>
+  </head>
+  <body>
+    <%-include('./inc/nav')%>
+    <section>
+      <a href="/admin/add">Add an Employee</a>
+      <h1>Employees</h1>
+      <ul>
+        <% employees.forEach(employee=>{ %>
+        <li>
+          <p><%=employee.name%> <%=employee.surname%></p>
+          <a class="del" data-doc="<>%=employee._id%">Delete</a>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+    <script>
+      const del = document.querySelector("a.del");
+
+      del.addEventListener("click", () => {
+        const endpoint = `admin/delete/${del.dateset.doc}`;
+
+        fetch(endpoint, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.link))
+          .catch((err) => console.log(err));
+      });
+    </script>
+  </body>
+</html>
