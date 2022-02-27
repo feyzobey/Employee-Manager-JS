@@ -59,9 +59,7 @@ app.get("/admin", (req, res) => {
 //     .catch(err => console.log(err))
 // })
 
-// app.get("/add", (req, res) => {
-//   res.render("add", { title: "Adding New Employee" })
-// })
+
 app.get("/admin/add", (req, res) => {
   res.render("add", { title: "Adding new employee" })
 })
