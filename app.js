@@ -53,10 +53,10 @@ app.get("/admin/add", (req, res) => {
 
 app.get("/admin/add", (req, res) => {
   const employee = new Employee({
-    name: req.query.name,
-    surname: req.query.surname,
-    id: req.query.id,
-    salary: req.query.salary
+    name: req.body.name,
+    surname: req.body.surname,
+    id: req.body.id,
+    salary: req.body.salary
   })
   employee
     .save()
