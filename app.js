@@ -4,12 +4,13 @@ import morgan from "morgan"
 import { Employee } from "./models/employees.js"
 
 const app = express() //express uygulaması oluşturma
+app.use(express.urlencoded({ extended: true }))
 const port = 3000
 
 app.set("view engine", "ejs") //ejs kullanımı
-app.use(express.urlencoded({ extended: true }))
+
 app.use(express.static("public")) //public klasörüne erişim
-app.use(morgan("dev")) //ara katman
+app.use(morgan("dev"))
 
 const dbURL = "mongodb+srv://FaBeY:FaBeY_123@node-project.i0ngg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
@@ -46,35 +47,36 @@ app.get("/admin", (req, res) => {
     .catch((err) => console.log(err))
 })
 
-// app.get("/add", (req, res) => {
-//   const employee = new Employee({
-//     name: "feyzullah",
-//     surname: "asil",
-//     id: "8",
-//     salary: 1234
-//   })
-//   employee
-//     .save()
-//     .then(() => res.redirect("/admin"))
-//     .catch(err => console.log(err))
-// })
-
-
 app.get("/admin/add", (req, res) => {
   res.render("add", { title: "Adding new employee" })
 })
 
-app.post("/admin/add", (req, res) => {
-  const employee = new Employee(req.body)
-  employee.save()
-    .then((data) => res.send(data))
+app.get("/admin/add", (req, res) => {
+  const employee = new Employee({
+    name: req.query.name,
+    surname: req.query.surname,
+    id: req.query.id,
+    salary: req.query.salary
+  })
+  employee
+    .save()
+    .then(() => {
+      res.redirect("/admin")
+    })
     .catch(err => console.log(err))
-
 })
+
+// app.post("/admin/add", (req, res) => {
+//   res.end(JSON.stringify(req.body))
+//   const employee = new Employee(req.body)
+//   employee.save()
+//     .then(() => res.redirect("/admin"))
+//     .catch(err => console.log(err))
+
+// })
 
 app.delete("/admin/delete/:id", (req, res) => {
   const id = req.params.id
-
   Employee.findByIdAndDelete(id)
     .then(() => res.json({ link: "/admin" }))
     .catch(err => console.log(err))
