@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose")
 const textSchema = new mongoose.Schema(
   {
     name: {
@@ -20,4 +20,5 @@ const textSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
-export const Employee = mongoose.model("Employee", textSchema)
+const Employee = mongoose.model("Employee", textSchema)
+module.exports = { Employee }

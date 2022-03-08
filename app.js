@@ -1,8 +1,8 @@
-import express from "express"
-import mongoose from "mongoose"
-import morgan from "morgan"
-import * as employeeRoutes from "./routes/employeeRoutes.js"
-import * as adminRoutes from "./routes/adminRoutes.js"
+const express = require("express")
+const mongoose = require("mongoose")
+const morgan = require("morgan")
+const employeeRoutes = require("./routes/employeeRoutes.js")
+const adminRoutes = require("./routes/adminRoutes.js")
 
 const app = express() //express uygulaması oluşturma
 app.use(express.urlencoded({ extended: true }))
@@ -16,7 +16,7 @@ const dbURL = "mongodb+srv://FaBeY:FaBeY_123@node-project.i0ngg.mongodb.net/myFi
 
 mongoose
   .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true }) //veri tabanına bağlanma
-  .then(app.listen(port), () => console.log(`listening port:${port}`))
+  .then(app.listen(port), console.log(`listening port:${port}`))
   .catch((err) => console.log(err))
 
 app.get("/", (req, res) => {

@@ -1,6 +1,6 @@
-import { Employee } from "../models/employees.js"
+const { Employee } = require("../models/employees.js")
 
-export const admin_index = (req, res) => {
+const admin_index = (req, res) => {
     Employee.find()
         .sort({ createdAt: -1 })
         .then((result) => {
@@ -9,17 +9,13 @@ export const admin_index = (req, res) => {
         .catch((err) => console.log(err))
 }
 
-export const admin_add = (req, res) => {
+const admin_add = (req, res) => {
     res.render("add", { title: "Adding new employee" })
 }
 
-export const admin_add_post = (req, res) => {
-    const employee = new Employee({
-        name: req.body.name,
-        surname: req.body.surname,
-        id: req.body.id,
-        salary: req.body.salary
-    })
+const admin_add_post = (req, res) => {
+    console.log(req.body)
+    const employee = new Employee(req.body)
     employee
         .save()
         .then(() => {
@@ -27,16 +23,24 @@ export const admin_add_post = (req, res) => {
         })
         .catch(err => console.log(err))
 }
-//  (req, res) => {
-//   res.end(JSON.stringify(req.body))
-//   const employee = new Employee(req.body)
-//   employee.save()
-//     .then(() => res.redirect("/admin"))
-//     .catch(err => console.log(err))
-// })
-export const admin_delete = (req, res) => {
+// (req, res) => {
+//     res.end(JSON.stringify(req.body))
+//     const employee = new Employee(req.body)
+//     employee.save()
+//         .then(() => res.redirect("/admin"))
+//         .catch(err => console.log(err))
+// }
+
+const admin_delete = (req, res) => {
     const id = req.params.id
     Employee.findByIdAndDelete(id)
         .then(() => res.json({ link: "/admin" }))
         .catch(err => console.log(err))
+}
+
+module.exports = {
+    admin_index,
+    admin_add,
+    admin_add_post,
+    admin_delete
 }
